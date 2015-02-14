@@ -8,7 +8,7 @@ public class Test {
 	public static void main(String[] args){
 		List<Process> arrivalList=new LinkedList<Process>();
 		Process.setRandomSeek(0);
-		for(int i=0; i<10;i++){
+		for(int i=0; i<30;i++){
 			Process p=Process.make();
 			arrivalList.add(p);
 		}
@@ -29,6 +29,12 @@ public class Test {
 		a4.run();
 		//SRT a3=new SRT(arrivalList);
 		//a3.run();
+		
+		List<Process> finishedList = a4.getFinishedList();
+		
+		for(Process p: finishedList){
+			p.display();
+		}
 	}
 
 }
