@@ -68,7 +68,7 @@ public class Process implements Comparable<Process>{
 	public void display(){
 		System.out.println("P"+(id+1)+"  Arrival Time: "+arrivalTime+"  Run Time: "+runTime+
 				"  Priority: "+priority);
-		System.out.println(""+id+" "+remainTime+" "+waitingTime+" "+turnaroundTime+" "+responseTime);
+		System.out.println(""+id+" remain time: "+ remainTime+" waiting time: "+waitingTime+" turnaround time: "+turnaroundTime+" response time: "+responseTime);
 	}
 	
 	/**

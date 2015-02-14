@@ -28,13 +28,17 @@ public class RR {
 			//Process currP;
 			if(!readyQueue.isEmpty()){
 				currP = readyQueue.remove();
+				for(Process p: readyQueue){
+					p.waitingTime += 1;
+							
+				}
 				runOneQuantum(currP, i);
 				
 				
 				System.out.println(i + ": " + "P"+ (currP.id + 1)); 
 			}
 			else{
-				System.out.println(i + ": ");
+				System.out.println(i + ": -");
 			}
 			
 			
@@ -59,6 +63,7 @@ public class RR {
 				readyQueue1.add(currP);
 			}
 			else{
+				currP.turnaroundTime=processOvertime + currP.remainTime - currP.arrivalTime;
 				currP.remainTime = 0;
 				finishedList.add(currP);
 			}
@@ -95,10 +100,19 @@ public class RR {
 	public void runOneQuantum(Process currP, int timeSlice){
 		if(currP.remainTime - 1 > 0){
 			currP.remainTime = currP.remainTime - 1;
+			
+			if(!currP.runFlag){
+				//the first time to run
+				currP.runFlag=true;
+				currP.waitingTime=timeSlice- currP.arrivalTime;
+				currP.responseTime=currP.waitingTime;
+			}
+			
 			addToReadyQueue(timeSlice + 1); //check if any arrived in between run
 			readyQueue.add(currP);
 		}
 		else{
+			currP.turnaroundTime=timeSlice + currP.remainTime - currP.arrivalTime;
 			currP.remainTime = 0;
 			finishedList.add(currP);
 		}
