@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -7,15 +6,21 @@ public class Test {
 
 	public static void main(String[] args) {
 		/**
-		 * for(int i = 1; i<= 5; i++){
-		 * 
-		 * }
-		 * 
-		 * for(int i = 1; i<= 5; i++){
-		 * 
-		 * }
-		 **/
+		System.out.println("FIRST-COME FIRST-SERVED: ");
+		for (int i = 1; i <= 5; i++) {
+			System.out.println("FCFS Run #" + i + ": ");
+			FCFS fcfs = new FCFS(createProcessList());
+			runAlgorithm(fcfs);
+		}
 
+		System.out.println("SHORTEST JOB FIRST: ");
+		for (int i = 1; i <= 5; i++) {
+			System.out.println("SJF Run #" + i + ": ");
+			SJF sjf = new SJF(createProcessList());
+			runAlgorithm(sjf);
+		}
+	    **/
+		
 		System.out.println("SHORTEST REMAINING TIME: ");
 		for (int i = 1; i <= 5; i++) {
 			System.out.println("SRT Run #" + i + ": ");
@@ -34,11 +39,13 @@ public class Test {
 
 	/**
 	 * Creates a list of 30 new random processes
+	 * 
 	 * @return list of processes
 	 */
 	public static List<Process> createProcessList() {
 		List<Process> arrivalList = new LinkedList<Process>();
-		Process.setRandomSeek(System.currentTimeMillis()); //test with 0 for debugging
+		Process.setRandomSeek(System.currentTimeMillis()); // test with 0 for
+															// debugging
 		for (int i = 0; i < 30; i++) {
 			Process p = Process.make();
 			arrivalList.add(p);
