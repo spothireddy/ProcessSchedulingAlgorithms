@@ -51,7 +51,7 @@ public class RR extends ProcessAlgorithm{
 		
 		//get rid of processes that haven't started yet (run time = remaining time)
 		for(Process p: readyQueue){
-			if(p.runTime != p.remainTime){
+			if(p.runFlag){
 				readyQueue1.add(p); //contains processes that should be finished
 			}
 		}

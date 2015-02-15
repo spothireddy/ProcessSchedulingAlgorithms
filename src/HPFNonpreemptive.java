@@ -207,7 +207,7 @@ public class HPFNonpreemptive extends ProcessAlgorithm {
 	private void removeExtraProcesses(){
 		Queue<Process> tempQueue = new LinkedList<Process>();
 		for(Process p: readyQueue1){
-			if(p.runTime == p.remainTime){
+			if(p.runFlag){
 				tempQueue.add(p);
 			}
 		}
@@ -216,7 +216,7 @@ public class HPFNonpreemptive extends ProcessAlgorithm {
 		tempQueue.clear();
 		
 		for(Process p: readyQueue2){
-			if(p.runTime == p.remainTime){
+			if(p.runFlag){
 				tempQueue.add(p);
 			}
 		}
@@ -225,7 +225,7 @@ public class HPFNonpreemptive extends ProcessAlgorithm {
 		tempQueue.clear();
 		
 		for(Process p: readyQueue3){
-			if(p.runTime == p.remainTime){
+			if(p.runFlag){
 				tempQueue.add(p);
 			}
 		}
@@ -234,7 +234,7 @@ public class HPFNonpreemptive extends ProcessAlgorithm {
 		tempQueue.clear();
 		
 		for(Process p: readyQueue4){
-			if(p.runTime == p.remainTime){
+			if(p.runFlag){
 				tempQueue.add(p);
 			}
 		}
