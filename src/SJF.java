@@ -116,7 +116,7 @@ public class SJF extends ProcessAlgorithm{
 				
 			}
 			
-			readyQueue.add(currP);
+			readyQueue.add(0, currP);//add it to the start of the list since it is nonpreemptive.
 				
 			
 		}
@@ -124,10 +124,12 @@ public class SJF extends ProcessAlgorithm{
 			currP.turnaroundTime=timeSlice + currP.remainTime - currP.arrivalTime;
 			currP.remainTime = 0;
 			finishedList.add(currP);
+			
+			//Sort readyQueue by shortest remaining time:
+			Collections.sort(readyQueue, Process.comparatorByRemainTime());
 		}
 		
-		//Sort readyQueue by shortest remaining time:
-		Collections.sort(readyQueue, Process.comparatorByRemainTime());
+		
 	}
 	
 	public List<Process> getFinishedList(){
