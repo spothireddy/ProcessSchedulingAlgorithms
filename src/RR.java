@@ -1,17 +1,17 @@
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
 
-public class RR {
+public class RR extends ProcessAlgorithm{
 
 	private List<Process> arrival;
 	private List<Process> finishedList;
 	private Queue<Process> readyQueue; 
 	Process currP;
+	
 	
 	public RR(List<Process> arrivalList){
 		readyQueue =new LinkedList<Process>();
@@ -20,30 +20,28 @@ public class RR {
 		Collections.sort(arrivalList); //sort by arrival time
 	}
 	
+	public List<Process> returnArrival(){
+		return arrival;
+	}
 	public void run(){
-		System.out.println("Timeline:");
 		int i = 0;
 		for(; i<Process.MAX_QUANTA ; i++){
 			addToReadyQueue(i);
 			//Process currP;
 			if(!readyQueue.isEmpty()){
 				currP = readyQueue.remove();
+				//Add waiting time to processes currently not running
 				for(Process p: readyQueue){
-					p.waitingTime += 1;
+					p.waitingTime = (float) (p.waitingTime + 1);
 							
 				}
 				runOneQuantum(currP, i);
 				
-				
-				System.out.println(i + ": " + "P"+ (currP.id + 1)); 
+				System.out.print("P"+ (currP.id + 1)); 
 			}
 			else{
-				System.out.println(i + ": -");
+				System.out.print("-");
 			}
-			
-			
-			
-			
 		}
 		
 		//handle unfinished processes
@@ -53,11 +51,17 @@ public class RR {
 		Queue<Process> readyQueue1 = new LinkedList<Process>();
 		for(Process p: readyQueue){
 			if(p.runTime != p.remainTime){
-				readyQueue1.add(p);
+				readyQueue1.add(p); //contains processes that should be finished
 			}
 		}
 		while(!readyQueue1.isEmpty()){
 			currP = readyQueue1.remove();
+			//Add waiting time to processes currently not running
+			for(Process p: readyQueue){
+				p.waitingTime = (float) (p.waitingTime + 1);
+						
+			}
+			
 			if(currP.remainTime - 1 > 0){
 				currP.remainTime = currP.remainTime - 1;
 				readyQueue1.add(currP);
@@ -67,7 +71,7 @@ public class RR {
 				currP.remainTime = 0;
 				finishedList.add(currP);
 			}
-			System.out.println(processOvertime + ": " + "P"+ (currP.id + 1)); 
+			System.out.print("P"+ (currP.id + 1)); 
 			processOvertime++;
 		}
 		

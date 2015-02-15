@@ -68,7 +68,7 @@ public class Process implements Comparable<Process>{
 	public void display(){
 		System.out.println("P"+(id+1)+"  Arrival Time: "+arrivalTime+"  Run Time: "+runTime+
 				"  Priority: "+priority);
-		System.out.println(""+id+" remain time: "+ remainTime+" waiting time: "+waitingTime+" turnaround time: "+turnaroundTime+" response time: "+responseTime);
+		//System.out.println(""+id+" remain time: "+ remainTime+" waiting time: "+waitingTime+" turnaround time: "+turnaroundTime+" response time: "+responseTime);
 	}
 	
 	/**
@@ -89,9 +89,9 @@ public class Process implements Comparable<Process>{
 	
 	/**
 	 * set the random seek, only use for debug
-	 * @param seek
+	 * @param l
 	 */
-	public static void setRandomSeek(int seek){
-		randomGenerator=new Random(seek);
+	public static void setRandomSeek(long l){
+		randomGenerator=new Random(l);
 	}
 }
