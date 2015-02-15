@@ -38,7 +38,7 @@ public class Test {
 	 */
 	public static List<Process> createProcessList() {
 		List<Process> arrivalList = new LinkedList<Process>();
-		Process.setRandomSeek(System.currentTimeMillis()); //
+		Process.setRandomSeek(System.currentTimeMillis()); //test with 0 for debugging
 		for (int i = 0; i < 30; i++) {
 			Process p = Process.make();
 			arrivalList.add(p);
@@ -92,7 +92,7 @@ public class Test {
 		for (Process p : algo.returnArrival()) {
 			p.display();
 		}
-
+		System.out.println("Timeline: ");
 		algo.run();
 		System.out.println();
 		calculateAverageTimes(algo.getFinishedList());
