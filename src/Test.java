@@ -46,11 +46,30 @@ public class Test {
 			hpfp.runAlgorithm();
 			System.out.println();
 			calculateAveragesOnPriority(hpfp.getFinishedList());
-			System.out.println("All of them: ");
+			System.out.println("Overall: ");
 			calculateAverageTimes(hpfp.getFinishedList());
 			System.out.println("**********************************************");
 			
 		}
+		
+		
+		System.out.println("HPF Nonpreemptive: ");
+		for (int i = 1; i <= 5; i++) {
+			System.out.println("HPF Nonpreemptive Run #" + i + ": ");
+			HPFNonpreemptive hpfnp = new HPFNonpreemptive(createProcessList());
+			for (Process p : hpfnp.returnArrival()) {
+				p.display();
+			}
+			System.out.println("Timeline: ");
+			hpfnp.runAlgorithm();
+			System.out.println();
+			calculateAveragesOnPriority(hpfnp.getFinishedList());
+			System.out.println("Overall: ");
+			calculateAverageTimes(hpfnp.getFinishedList());
+			System.out.println("**********************************************");
+			
+		}
+
 
 	}
 
@@ -61,8 +80,8 @@ public class Test {
 	 */
 	public static List<Process> createProcessList() {
 		List<Process> arrivalList = new LinkedList<Process>();
-		Process.setRandomSeek(0); // test with 0 for System.currentTimeMillis()
-															// debugging
+		Process.setRandomSeek(0); // test with 0 for debugging otherwise use System.currentTimeMillis()
+															
 		for (int i = 0; i < 30; i++) {
 			Process p = Process.make();
 			arrivalList.add(p);
