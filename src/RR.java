@@ -10,11 +10,13 @@ public class RR extends ProcessAlgorithm{
 	private List<Process> arrival;
 	private List<Process> finishedList;
 	private Queue<Process> readyQueue; 
+	Queue<Process> readyQueue1;
 	Process currP;
 	
 	
 	public RR(List<Process> arrivalList){
 		readyQueue =new LinkedList<Process>();
+		readyQueue1 = new LinkedList<Process>();
 		finishedList = new ArrayList<Process>();
 		arrival=arrivalList;
 		Collections.sort(arrivalList); //sort by arrival time
@@ -35,7 +37,7 @@ public class RR extends ProcessAlgorithm{
 					p.waitingTime = (float) (p.waitingTime + 1);
 							
 				}
-				runOneQuantum(currP, i);
+				runOneQuantum(currP, i, true);
 				
 				System.out.print("P"+ (currP.id + 1)); 
 			}
@@ -48,7 +50,6 @@ public class RR extends ProcessAlgorithm{
 		int processOvertime = Process.MAX_QUANTA;
 		
 		//get rid of processes that haven't started yet (run time = remaining time)
-		Queue<Process> readyQueue1 = new LinkedList<Process>();
 		for(Process p: readyQueue){
 			if(p.runTime != p.remainTime){
 				readyQueue1.add(p); //contains processes that should be finished
@@ -57,20 +58,12 @@ public class RR extends ProcessAlgorithm{
 		while(!readyQueue1.isEmpty()){
 			currP = readyQueue1.remove();
 			//Add waiting time to processes currently not running
-			for(Process p: readyQueue){
+			for(Process p: readyQueue1){
 				p.waitingTime = (float) (p.waitingTime + 1);
 						
 			}
 			
-			if(currP.remainTime - 1 > 0){
-				currP.remainTime = currP.remainTime - 1;
-				readyQueue1.add(currP);
-			}
-			else{
-				currP.turnaroundTime=processOvertime + currP.remainTime - currP.arrivalTime;
-				currP.remainTime = 0;
-				finishedList.add(currP);
-			}
+			runOneQuantum(currP, i, false);
 			System.out.print("P"+ (currP.id + 1)); 
 			processOvertime++;
 		}
@@ -101,7 +94,7 @@ public class RR extends ProcessAlgorithm{
 	 * @param currP the process to be executed
 	 * @param timeSlice the time at which it is executed
 	 */
-	public void runOneQuantum(Process currP, int timeSlice){
+	public void runOneQuantum(Process currP, int timeSlice, boolean addMore){
 		if(currP.remainTime - 1 > 0){
 			currP.remainTime = currP.remainTime - 1;
 			
@@ -111,9 +104,16 @@ public class RR extends ProcessAlgorithm{
 				currP.waitingTime=timeSlice- currP.arrivalTime;
 				currP.responseTime=currP.waitingTime;
 			}
+			if(addMore){
+				addToReadyQueue(timeSlice + 1); //check if any arrived in between run
+				readyQueue.add(currP);
+			}
+			else{
+				readyQueue1.add(currP);
+			}
 			
-			addToReadyQueue(timeSlice + 1); //check if any arrived in between run
-			readyQueue.add(currP);
+			
+			
 		}
 		else{
 			currP.turnaroundTime=timeSlice + currP.remainTime - currP.arrivalTime;

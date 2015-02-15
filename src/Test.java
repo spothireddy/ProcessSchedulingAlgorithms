@@ -34,6 +34,23 @@ public class Test {
 			RR rr = new RR(createProcessList());
 			runAlgorithm(rr);
 		}
+		
+		System.out.println("HPF Preemptive: ");
+		for (int i = 1; i <= 5; i++) {
+			System.out.println("HPF Preemptive Run #" + i + ": ");
+			HPFPreemptive hpfp = new HPFPreemptive(createProcessList());
+			for (Process p : hpfp.returnArrival()) {
+				p.display();
+			}
+			System.out.println("Timeline: ");
+			hpfp.runAlgorithm();
+			System.out.println();
+			calculateAveragesOnPriority(hpfp.getFinishedList());
+			System.out.println("All of them: ");
+			calculateAverageTimes(hpfp.getFinishedList());
+			System.out.println("**********************************************");
+			
+		}
 
 	}
 
@@ -87,6 +104,49 @@ public class Test {
 		System.out.println("Average Turnaround Time: " + turnaroundTime);
 		System.out.println("Average Response Time: " + responseTime);
 
+	}
+	
+	/**
+	 * Calculate averages based on priority
+	 */
+	private static void calculateAveragesOnPriority(List<Process> priorityProcesses){
+		List<Process> priority1 = new LinkedList<Process>();
+		List<Process> priority2 = new LinkedList<Process>();
+		List<Process> priority3 = new LinkedList<Process>();
+		List<Process> priority4 = new LinkedList<Process>();
+		
+		for(Process p: priorityProcesses){
+			int priorityLevel = p.priority;
+			switch(priorityLevel){
+			case 1:
+				priority1.add(p);
+				break;
+			case 2:
+				priority2.add(p);
+				break;
+			case 3:
+				priority3.add(p);
+				break;
+			case 4:
+				priority4.add(p);
+				break;
+			}
+		}
+		
+		System.out.println("Priority 1: ");
+		calculateAverageTimes(priority1);
+		
+		System.out.println("Priority 2: ");
+		calculateAverageTimes(priority2);
+		
+		System.out.println("Priority 3: ");
+		calculateAverageTimes(priority3);
+		
+		System.out.println("Priority 4: ");
+		calculateAverageTimes(priority4);
+		
+		
+		
 	}
 
 	/**
