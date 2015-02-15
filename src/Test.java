@@ -5,14 +5,13 @@ import java.util.List;
 public class Test {
 
 	public static void main(String[] args) {
-		/**
+
 		System.out.println("FIRST-COME FIRST-SERVED: ");
 		for (int i = 1; i <= 5; i++) {
 			System.out.println("FCFS Run #" + i + ": ");
 			FCFS fcfs = new FCFS(createProcessList());
 			runAlgorithm(fcfs);
 		}
-		**/
 		
 		System.out.println("SHORTEST JOB FIRST: ");
 		for (int i = 1; i <= 5; i++) {
@@ -86,12 +85,6 @@ public class Test {
 			runAlgorithm(hpfpA);
 		}
 
-		System.out.println("FCFS: ");
-		for (int i = 1; i <= 5; i++) {
-			System.out.println("FCFS Run #" + i + ": ");
-			FCFS fcfs = new FCFS(createProcessList());
-			runAlgorithm(fcfs);
-		}
 	}
 
 	/**

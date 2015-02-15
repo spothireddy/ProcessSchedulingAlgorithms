@@ -16,7 +16,7 @@ public class FCFS extends ProcessAlgorithm {
 		arrival = arrivalList;
 		Collections.sort(arrival); // sort by arrival time
 		finishedList = new ArrayList<Process>();
-		readyQueue = new LinkedList<>();
+		readyQueue = new LinkedList<Process>();
 	}
 	
 	
