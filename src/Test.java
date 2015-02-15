@@ -12,14 +12,15 @@ public class Test {
 			FCFS fcfs = new FCFS(createProcessList());
 			runAlgorithm(fcfs);
 		}
-
+		**/
+		
 		System.out.println("SHORTEST JOB FIRST: ");
 		for (int i = 1; i <= 5; i++) {
 			System.out.println("SJF Run #" + i + ": ");
 			SJF sjf = new SJF(createProcessList());
 			runAlgorithm(sjf);
 		}
-	    **/
+
 		
 		System.out.println("SHORTEST REMAINING TIME: ");
 		for (int i = 1; i <= 5; i++) {
