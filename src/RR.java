@@ -23,7 +23,7 @@ public class RR extends ProcessAlgorithm{
 	public List<Process> returnArrival(){
 		return arrival;
 	}
-	public void run(){
+	public void runAlgorithm(){
 		int i = 0;
 		for(; i<Process.MAX_QUANTA ; i++){
 			addToReadyQueue(i);

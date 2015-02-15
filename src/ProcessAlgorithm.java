@@ -14,7 +14,7 @@ public abstract class ProcessAlgorithm {
 	/**
 	 * Run the algorithm
 	 */
-	abstract void run();
+	abstract void runAlgorithm();
 
 	/**
 	 * Get the list of processes that were completed

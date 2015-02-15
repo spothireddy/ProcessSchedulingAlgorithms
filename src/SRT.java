@@ -14,7 +14,7 @@ public class SRT extends ProcessAlgorithm{
 	}
 	
 	@Override
-	public void run(){
+	public void runAlgorithm(){
 		int processId=0; //it equals the process index in arrival, begin with 0
 		//System.out.println("Timeline:");
 		int i=0;

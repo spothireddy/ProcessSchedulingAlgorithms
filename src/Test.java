@@ -100,7 +100,7 @@ public class Test {
 			p.display();
 		}
 		System.out.println("Timeline: ");
-		algo.run();
+		algo.runAlgorithm();
 		System.out.println();
 		calculateAverageTimes(algo.getFinishedList());
 		System.out.println("**********************************************");
