@@ -44,7 +44,7 @@ public class Test {
 	 */
 	public static List<Process> createProcessList() {
 		List<Process> arrivalList = new LinkedList<Process>();
-		Process.setRandomSeek(System.currentTimeMillis()); // test with 0 for
+		Process.setRandomSeek(0); // test with 0 for System.currentTimeMillis()
 															// debugging
 		for (int i = 0; i < 30; i++) {
 			Process p = Process.make();
