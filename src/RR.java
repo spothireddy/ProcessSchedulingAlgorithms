@@ -10,13 +10,12 @@ public class RR extends ProcessAlgorithm{
 	private List<Process> arrival;
 	private List<Process> finishedList;
 	private Queue<Process> readyQueue; 
-	Queue<Process> readyQueue1;
+	
 	Process currP;
 	
 	
 	public RR(List<Process> arrivalList){
 		readyQueue =new LinkedList<Process>();
-		readyQueue1 = new LinkedList<Process>();
 		finishedList = new ArrayList<Process>();
 		arrival=arrivalList;
 		Collections.sort(arrivalList); //sort by arrival time
@@ -50,20 +49,24 @@ public class RR extends ProcessAlgorithm{
 		
 		//handle unfinished processes
 		int processOvertime = Process.MAX_QUANTA;
-		
+		Queue<Process> tempQueue = new LinkedList<Process>();
 		//get rid of processes that haven't started yet (run time = remaining time)
 		for(Process p: readyQueue){
 			if(p.runFlag){
-				readyQueue1.add(p); //contains processes that should be finished
+				tempQueue.add(p); //contains processes that should be finished
 			}
 		}
-		while(!readyQueue1.isEmpty()){
-			currP = readyQueue1.remove();
+		
+		readyQueue.clear();
+		readyQueue.addAll(tempQueue);
+		
+		while(!readyQueue.isEmpty()){
+			currP = readyQueue.remove();
 			
 			
 			runOneQuantum(currP, processOvertime, false); //Use Process overtime instead of i
 			//Add waiting time to processes currently not running
-			for(Process p: readyQueue1){
+			for(Process p: readyQueue){
 				p.waitingTime = (float) (p.waitingTime + 1);
 						
 			}
@@ -109,13 +112,11 @@ public class RR extends ProcessAlgorithm{
 			}
 			if(addMore){
 				addToReadyQueue(timeSlice + 1); //check if any arrived in between run
-				readyQueue.add(currP);
-			}
-			else{
-				readyQueue1.add(currP);
+				
 			}
 			
-			
+			readyQueue.add(currP);
+				
 			
 		}
 		else{
