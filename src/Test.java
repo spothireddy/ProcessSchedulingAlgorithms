@@ -77,6 +77,14 @@ public class Test {
 			runAlgorithm(hpfnpA);
 			
 		}
+		
+		System.out.println("HPF Preemptive Aging: ");
+		for (int i = 1; i <= 5; i++) {
+			System.out.println("HPF Preemptive Aging Run #" + i + ": ");
+			HPFPreemptiveAging hpfpA = new HPFPreemptiveAging(createProcessList());
+			runAlgorithm(hpfpA);
+			
+		}
 
 
 	}

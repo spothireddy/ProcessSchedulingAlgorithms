@@ -37,26 +37,26 @@ public class HPFPreemptive extends ProcessAlgorithm {
 			
 			if(!readyQueue1.isEmpty()){
 				currP = readyQueue1.remove();
-				addWaittimes();
 				runOneQuantum(currP, i, 1, true);
+				addWaittimes();
 				System.out.print("P"+ (currP.id + 1));
 			}
 			else if(!readyQueue2.isEmpty()){
 				currP = readyQueue2.remove();
-				addWaittimes();
 				runOneQuantum(currP, i, 2, true);
+				addWaittimes();
 				System.out.print("P"+ (currP.id + 1));
 			}
 			else if(!readyQueue3.isEmpty()){
 				currP = readyQueue3.remove();
-				addWaittimes();
 				runOneQuantum(currP, i, 3, true);
+				addWaittimes();
 				System.out.print("P"+ (currP.id + 1));
 			}
 			else if(!readyQueue4.isEmpty()){
 				currP = readyQueue4.remove();
-				addWaittimes();
 				runOneQuantum(currP, i, 4, true);
+				addWaittimes();
 				System.out.print("P"+ (currP.id + 1));
 			}
 			else{
@@ -74,26 +74,26 @@ public class HPFPreemptive extends ProcessAlgorithm {
 		while(!readyQueue4.isEmpty() | !readyQueue3.isEmpty() | !readyQueue2.isEmpty() | !readyQueue1.isEmpty()){
 			if(!readyQueue1.isEmpty()){
 				currP = readyQueue1.remove();
+				runOneQuantum(currP, processOvertime, 1, false);
 				addWaittimes();
-				runOneQuantum(currP, processOvertime, 1, true);
 				System.out.print("P"+ (currP.id + 1));
 			}
 			else if(!readyQueue2.isEmpty()){
 				currP = readyQueue2.remove();
+				runOneQuantum(currP, processOvertime, 2, false);
 				addWaittimes();
-				runOneQuantum(currP, processOvertime, 2, true);
 				System.out.print("P"+ (currP.id + 1));
 			}
 			else if(!readyQueue3.isEmpty()){
 				currP = readyQueue3.remove();
+				runOneQuantum(currP, processOvertime, 3, false);
 				addWaittimes();
-				runOneQuantum(currP, processOvertime, 3, true);
 				System.out.print("P"+ (currP.id + 1));
 			}
 			else if(!readyQueue4.isEmpty()){
 				currP = readyQueue4.remove();
+				runOneQuantum(currP, processOvertime, 4, false);
 				addWaittimes();
-				runOneQuantum(currP, processOvertime, 4, true);
 				System.out.print("P"+ (currP.id + 1));
 			}
 			else{

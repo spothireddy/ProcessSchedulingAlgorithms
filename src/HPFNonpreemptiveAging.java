@@ -74,25 +74,25 @@ public class HPFNonpreemptiveAging extends ProcessAlgorithm {
 		while(!readyQueue4.isEmpty() | !readyQueue3.isEmpty() | !readyQueue2.isEmpty() | !readyQueue1.isEmpty()){
 			if(!readyQueue1.isEmpty()){
 				currP = readyQueue1.peek();
-				runOneQuantum(currP, processOvertime, 1, true);
+				runOneQuantum(currP, processOvertime, 1, false);
 				addWaittimes();
 				System.out.print("P"+ (currP.id + 1));
 			}
 			else if(!readyQueue2.isEmpty()){
 				currP = readyQueue2.peek();
-				runOneQuantum(currP, processOvertime, 2, true);
+				runOneQuantum(currP, processOvertime, 2, false);
 				addWaittimes();
 				System.out.print("P"+ (currP.id + 1));
 			}
 			else if(!readyQueue3.isEmpty()){
 				currP = readyQueue3.peek();
-				runOneQuantum(currP, processOvertime, 3, true);
+				runOneQuantum(currP, processOvertime, 3, false);
 				addWaittimes();
 				System.out.print("P"+ (currP.id + 1));
 			}
 			else if(!readyQueue4.isEmpty()){
 				currP = readyQueue4.peek();
-				runOneQuantum(currP, processOvertime, 4, true);
+				runOneQuantum(currP, processOvertime, 4, false);
 				addWaittimes();
 				System.out.print("P"+ (currP.id + 1));
 			}

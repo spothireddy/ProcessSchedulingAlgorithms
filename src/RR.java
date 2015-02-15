@@ -32,12 +32,14 @@ public class RR extends ProcessAlgorithm{
 			//Process currP;
 			if(!readyQueue.isEmpty()){
 				currP = readyQueue.remove();
+				
+				runOneQuantum(currP, i, true);
+				
 				//Add waiting time to processes currently not running
 				for(Process p: readyQueue){
 					p.waitingTime = (float) (p.waitingTime + 1);
 							
 				}
-				runOneQuantum(currP, i, true);
 				
 				System.out.print("P"+ (currP.id + 1)); 
 			}
@@ -57,13 +59,14 @@ public class RR extends ProcessAlgorithm{
 		}
 		while(!readyQueue1.isEmpty()){
 			currP = readyQueue1.remove();
+			
+			
+			runOneQuantum(currP, processOvertime, false); //Use Process overtime instead of i
 			//Add waiting time to processes currently not running
 			for(Process p: readyQueue1){
 				p.waitingTime = (float) (p.waitingTime + 1);
 						
 			}
-			
-			runOneQuantum(currP, processOvertime, false); //Use Process overtime instead of i
 			System.out.print("P"+ (currP.id + 1)); 
 			processOvertime++;
 		}
