@@ -4,6 +4,12 @@ import java.util.List;
 
 public class Test {
 
+	//Holds avg data for 5 runs of an algorithm
+	private static float tempAverageWaitingTime = 0;
+	private static float tempAverageTurnaroundTime = 0;
+	private static float tempAverageResponseTime =0;
+	private static float tempAverageThroughputTime = 0;
+	
 	public static void main(String[] args) {
 
 		System.out.println("FIRST-COME FIRST-SERVED: ");
@@ -12,6 +18,7 @@ public class Test {
 			FCFS fcfs = new FCFS(createProcessList());
 			runAlgorithm(fcfs);
 		}
+		printAveragesForAlgorithm();
 		
 		System.out.println("SHORTEST JOB FIRST: ");
 		for (int i = 1; i <= 5; i++) {
@@ -19,7 +26,7 @@ public class Test {
 			SJF sjf = new SJF(createProcessList());
 			runAlgorithm(sjf);
 		}
-
+		printAveragesForAlgorithm();
 		
 		System.out.println("SHORTEST REMAINING TIME: ");
 		for (int i = 1; i <= 5; i++) {
@@ -27,6 +34,7 @@ public class Test {
 			SRT srt = new SRT(createProcessList());
 			runAlgorithm(srt);
 		}
+		printAveragesForAlgorithm();
 
 		System.out.println("ROUND ROBIN: ");
 		for (int i = 1; i <= 5; i++) {
@@ -34,6 +42,7 @@ public class Test {
 			RR rr = new RR(createProcessList());
 			runAlgorithm(rr);
 		}
+		printAveragesForAlgorithm();
 		
 		System.out.println("HPF Preemptive: ");
 		for (int i = 1; i <= 5; i++) {
@@ -51,6 +60,7 @@ public class Test {
 			System.out.println("**********************************************");
 			
 		}
+		printAveragesForAlgorithm();
 		
 		
 		System.out.println("HPF Nonpreemptive: ");
@@ -69,6 +79,7 @@ public class Test {
 			System.out.println("**********************************************");
 			
 		}
+		printAveragesForAlgorithm();
 		
 		System.out.println("HPFNonpreemptiveAging: ");
 		for (int i = 1; i <= 5; i++) {
@@ -84,6 +95,7 @@ public class Test {
 			HPFPreemptiveAging hpfpA = new HPFPreemptiveAging(createProcessList());
 			runAlgorithm(hpfpA);
 		}
+		printAveragesForAlgorithm();
 
 	}
 
@@ -121,6 +133,7 @@ public class Test {
 		float waitingTime = 0;
 		float turnaroundTime = 0; // the time in ready list to completed execute
 		float responseTime = 0;
+		float throughput = 0; //TODO
 
 		for (Process p : finishedProcesses) {
 			waitingTime += p.waitingTime;
@@ -132,10 +145,15 @@ public class Test {
 		waitingTime = waitingTime / finishedProcesses.size();
 		turnaroundTime = turnaroundTime / finishedProcesses.size();
 		responseTime = responseTime / finishedProcesses.size();
+		
+		tempAverageWaitingTime += waitingTime;
+		tempAverageTurnaroundTime += turnaroundTime;
+		tempAverageResponseTime += responseTime;
 
 		System.out.println("Average Waiting Time: " + waitingTime);
 		System.out.println("Average Turnaround Time: " + turnaroundTime);
 		System.out.println("Average Response Time: " + responseTime);
+		System.out.println("Throughput: "+ throughput);
 
 	}
 	
@@ -198,6 +216,30 @@ public class Test {
 		calculateAverageTimes(algo.getFinishedList());
 		System.out.println("**********************************************");
 
+	}
+	
+	/**
+	 * Reset temp averages
+	 */
+	public static void resetTempAverages(){
+		tempAverageWaitingTime = 0;
+		tempAverageTurnaroundTime = 0;
+		tempAverageResponseTime =0;
+		tempAverageThroughputTime = 0;
+	}
+	
+	/**
+	 * Print out averages for 5 runs of the algorithm
+	 */
+	public static void printAveragesForAlgorithm(){
+		System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+		System.out.println("Averages for the 5 runs: ");
+		System.out.println("Average Waiting Time: " + (tempAverageWaitingTime/5));
+		System.out.println("Average Turnaround Time: " + (tempAverageTurnaroundTime/5));
+		System.out.println("Average Response Time: " + (tempAverageResponseTime/5));
+		System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+		
+		resetTempAverages(); //reset values to zero;
 	}
 
 }
