@@ -63,7 +63,7 @@ public class RR extends ProcessAlgorithm{
 						
 			}
 			
-			runOneQuantum(currP, i, false);
+			runOneQuantum(currP, processOvertime, false); //Use Process overtime instead of i
 			System.out.print("P"+ (currP.id + 1)); 
 			processOvertime++;
 		}

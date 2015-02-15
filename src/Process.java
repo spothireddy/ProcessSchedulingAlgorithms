@@ -16,6 +16,7 @@ public class Process implements Comparable<Process>{
 	float turnaroundTime; //the time in ready list to completed execute
 	float responseTime; //the time in ready list to first response
 	boolean runFlag=false; //true: the process have executed
+	int ageCount = 0;
 	
 	/**
 	 * Compare two Processes by arrival time

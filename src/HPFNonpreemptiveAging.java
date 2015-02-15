@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-public class HPFNonpreemptive extends ProcessAlgorithm {
+public class HPFNonpreemptiveAging extends ProcessAlgorithm {
 
 	private List<Process> arrival;
 	private List<Process> finishedList;
@@ -14,7 +14,7 @@ public class HPFNonpreemptive extends ProcessAlgorithm {
 	private Queue<Process> readyQueue4; // priority 4 queue
 	Process currP;
 
-	public HPFNonpreemptive(List<Process> arrivalList) {
+	public HPFNonpreemptiveAging(List<Process> arrivalList) {
 		readyQueue1 = new LinkedList<Process>();
 		readyQueue2 = new LinkedList<Process>();
 		readyQueue3 = new LinkedList<Process>();
@@ -37,27 +37,27 @@ public class HPFNonpreemptive extends ProcessAlgorithm {
 			
 			if(!readyQueue1.isEmpty()){
 				currP = readyQueue1.peek();
-				addWaittimes();
 				runOneQuantum(currP, i, 1, true);
+				addWaittimes();
 				System.out.print("P"+ (currP.id + 1));
 			}
 			else if(!readyQueue2.isEmpty()){
 				currP = readyQueue2.peek();
-				addWaittimes();
 				runOneQuantum(currP, i, 2, true);
+				addWaittimes();
 				System.out.print("P"+ (currP.id + 1));
 			}
 			else if(!readyQueue3.isEmpty()){
 				currP = readyQueue3.peek();
-				addWaittimes();
 				runOneQuantum(currP, i, 3, true);
+				addWaittimes();
 				System.out.print("P"+ (currP.id + 1));
 			}
 			else if(!readyQueue4.isEmpty()){
 				currP = readyQueue4.peek();
-				addWaittimes();
 				runOneQuantum(currP, i, 4, true);
 				System.out.print("P"+ (currP.id + 1));
+				addWaittimes();
 			}
 			else{
 				System.out.print("-");
@@ -74,26 +74,26 @@ public class HPFNonpreemptive extends ProcessAlgorithm {
 		while(!readyQueue4.isEmpty() | !readyQueue3.isEmpty() | !readyQueue2.isEmpty() | !readyQueue1.isEmpty()){
 			if(!readyQueue1.isEmpty()){
 				currP = readyQueue1.peek();
-				addWaittimes();
 				runOneQuantum(currP, processOvertime, 1, true);
+				addWaittimes();
 				System.out.print("P"+ (currP.id + 1));
 			}
 			else if(!readyQueue2.isEmpty()){
 				currP = readyQueue2.peek();
-				addWaittimes();
 				runOneQuantum(currP, processOvertime, 2, true);
+				addWaittimes();
 				System.out.print("P"+ (currP.id + 1));
 			}
 			else if(!readyQueue3.isEmpty()){
 				currP = readyQueue3.peek();
-				addWaittimes();
 				runOneQuantum(currP, processOvertime, 3, true);
+				addWaittimes();
 				System.out.print("P"+ (currP.id + 1));
 			}
 			else if(!readyQueue4.isEmpty()){
 				currP = readyQueue4.peek();
-				addWaittimes();
 				runOneQuantum(currP, processOvertime, 4, true);
+				addWaittimes();
 				System.out.print("P"+ (currP.id + 1));
 			}
 			else{
@@ -147,7 +147,64 @@ public class HPFNonpreemptive extends ProcessAlgorithm {
 		}
 	}
 
-	
+	/**
+	 * Aging method (EXTRA CREDIT)
+	 */
+	public void agingProcess(){
+		Queue<Process> tempAgingQueue = new LinkedList<Process>();
+		Queue<Process> tempRealPriorityQueue = new LinkedList<Process>();
+		
+		//From 2 to 1
+		for(Process p: readyQueue2){
+			if(p.ageCount == 5){
+				p.ageCount = 0; 
+				tempAgingQueue.add(p);
+			}
+			else{
+				tempRealPriorityQueue.add(p);
+			}
+		}
+		readyQueue2.clear();
+		readyQueue2.addAll(tempRealPriorityQueue);
+		readyQueue1.addAll(tempAgingQueue);
+		
+		tempAgingQueue.clear();
+		tempRealPriorityQueue.clear();
+		
+		//From 3 to 2
+		for(Process p: readyQueue3){
+			if(p.ageCount == 5){
+				p.ageCount = 0; 
+				tempAgingQueue.add(p);
+			}
+			else{
+				tempRealPriorityQueue.add(p);
+			}
+		}
+		readyQueue3.clear();
+		readyQueue3.addAll(tempRealPriorityQueue);
+		readyQueue2.addAll(tempAgingQueue);
+		
+		tempAgingQueue.clear();
+		tempRealPriorityQueue.clear();
+		
+		//From 4 to 3
+		for(Process p: readyQueue4){
+			if(p.ageCount == 5){
+				p.ageCount = 0; 
+				tempAgingQueue.add(p);
+			}
+			else{
+				tempRealPriorityQueue.add(p);
+			}
+		}
+		readyQueue4.clear();
+		readyQueue4.addAll(tempRealPriorityQueue);
+		readyQueue3.addAll(tempAgingQueue);
+		
+		tempAgingQueue.clear();
+		tempRealPriorityQueue.clear();
+	}
 	
 
 	
@@ -185,20 +242,28 @@ public class HPFNonpreemptive extends ProcessAlgorithm {
 	
 	/**
 	 * Add wait times to all the processes in the ready queue
+	 * Also add age! (EXTRA CREDIT)
 	 */
 	private void addWaittimes(){
 		for(Process p: readyQueue1){
 			p.waitingTime = (float) (p.waitingTime + 1);
+			p.ageCount = p.ageCount + 1;
 		}
 		for(Process p: readyQueue2){
 			p.waitingTime = (float) (p.waitingTime + 1);
+			p.ageCount = p.ageCount + 1;
 		}
 		for(Process p: readyQueue3){
 			p.waitingTime = (float) (p.waitingTime + 1);
+			p.ageCount = p.ageCount + 1;
 		}
 		for(Process p: readyQueue4){
 			p.waitingTime = (float) (p.waitingTime + 1);
+			p.ageCount = p.ageCount + 1;
 		}
+		
+		//EXTRA CREDIT
+		agingProcess();
 	}
 	
 	/**
