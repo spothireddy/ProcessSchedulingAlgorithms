@@ -191,7 +191,7 @@ public class Test {
 		responseTime = responseTime / finishedProcesses.size();
 		switch(priorityLevel){
 		case 0: //not based on priority level
-			throughputTime = finishedProcesses.size() / (float) totalTime;
+			throughputTime = (finishedProcesses.size() / (float) totalTime) * (100);
 			tempAverageWaitingTime += waitingTime;
 			tempAverageTurnaroundTime += turnaroundTime;
 			tempAverageResponseTime += responseTime;
