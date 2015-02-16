@@ -13,6 +13,7 @@ public class HPFPreemptive extends ProcessAlgorithm {
 	private Queue<Process> readyQueue3; // priority 3 queue
 	private Queue<Process> readyQueue4; // priority 4 queue
 	Process currP;
+	int totalTime = Process.MAX_QUANTA;
 
 	public HPFPreemptive(List<Process> arrivalList) {
 		readyQueue1 = new LinkedList<Process>();
@@ -66,7 +67,7 @@ public class HPFPreemptive extends ProcessAlgorithm {
 		}
 		
 		//handle unfinished processes
-		int processOvertime = Process.MAX_QUANTA;
+		totalTime = Process.MAX_QUANTA;
 		
 		//get rid of processes that haven't started yet (run time = remaining time)
 		removeExtraProcesses();
@@ -74,32 +75,32 @@ public class HPFPreemptive extends ProcessAlgorithm {
 		while(!readyQueue4.isEmpty() | !readyQueue3.isEmpty() | !readyQueue2.isEmpty() | !readyQueue1.isEmpty()){
 			if(!readyQueue1.isEmpty()){
 				currP = readyQueue1.remove();
-				runOneQuantum(currP, processOvertime, 1, false);
+				runOneQuantum(currP, totalTime, 1, false);
 				addWaittimes();
 				System.out.print("P"+ (currP.id + 1));
 			}
 			else if(!readyQueue2.isEmpty()){
 				currP = readyQueue2.remove();
-				runOneQuantum(currP, processOvertime, 2, false);
+				runOneQuantum(currP, totalTime, 2, false);
 				addWaittimes();
 				System.out.print("P"+ (currP.id + 1));
 			}
 			else if(!readyQueue3.isEmpty()){
 				currP = readyQueue3.remove();
-				runOneQuantum(currP, processOvertime, 3, false);
+				runOneQuantum(currP, totalTime, 3, false);
 				addWaittimes();
 				System.out.print("P"+ (currP.id + 1));
 			}
 			else if(!readyQueue4.isEmpty()){
 				currP = readyQueue4.remove();
-				runOneQuantum(currP, processOvertime, 4, false);
+				runOneQuantum(currP, totalTime, 4, false);
 				addWaittimes();
 				System.out.print("P"+ (currP.id + 1));
 			}
 			else{
 				System.out.print("-");
 			} 
-			processOvertime++;
+			totalTime++;
 		}
 	}
 
@@ -246,6 +247,12 @@ public class HPFPreemptive extends ProcessAlgorithm {
 	@Override
 	List<Process> getFinishedList() {
 		return finishedList;
+	}
+
+	@Override
+	int getTotalRuntime() {
+		
+		return totalTime - 1;
 	}
 
 }

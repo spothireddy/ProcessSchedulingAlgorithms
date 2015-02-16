@@ -23,4 +23,9 @@ public abstract class ProcessAlgorithm {
 	 */
 	abstract List<Process> getFinishedList(); // outputs the list of processes
 												// that finished
+	/**
+	 * Get the total amount of time that an algorithm runs for
+	 * @return total time
+	 */
+	abstract int getTotalRuntime();
 }

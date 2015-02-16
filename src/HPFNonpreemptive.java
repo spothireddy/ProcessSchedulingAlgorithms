@@ -13,6 +13,7 @@ public class HPFNonpreemptive extends ProcessAlgorithm {
 	private Queue<Process> readyQueue3; // priority 3 queue
 	private Queue<Process> readyQueue4; // priority 4 queue
 	Process currP;
+	int totalTime = Process.MAX_QUANTA;
 
 	public HPFNonpreemptive(List<Process> arrivalList) {
 		readyQueue1 = new LinkedList<Process>();
@@ -66,7 +67,7 @@ public class HPFNonpreemptive extends ProcessAlgorithm {
 		}
 		
 		//handle unfinished processes
-		int processOvertime = Process.MAX_QUANTA;
+		totalTime = Process.MAX_QUANTA;
 		
 		//get rid of processes that haven't started yet (run time = remaining time)
 		removeExtraProcesses();
@@ -75,31 +76,31 @@ public class HPFNonpreemptive extends ProcessAlgorithm {
 			if(!readyQueue1.isEmpty()){
 				currP = readyQueue1.peek();
 				addWaittimes();
-				runOneQuantum(currP, processOvertime, 1, false);
+				runOneQuantum(currP, totalTime, 1, false);
 				System.out.print("P"+ (currP.id + 1));
 			}
 			else if(!readyQueue2.isEmpty()){
 				currP = readyQueue2.peek();
 				addWaittimes();
-				runOneQuantum(currP, processOvertime, 2, false);
+				runOneQuantum(currP, totalTime, 2, false);
 				System.out.print("P"+ (currP.id + 1));
 			}
 			else if(!readyQueue3.isEmpty()){
 				currP = readyQueue3.peek();
 				addWaittimes();
-				runOneQuantum(currP, processOvertime, 3, false);
+				runOneQuantum(currP, totalTime, 3, false);
 				System.out.print("P"+ (currP.id + 1));
 			}
 			else if(!readyQueue4.isEmpty()){
 				currP = readyQueue4.peek();
 				addWaittimes();
-				runOneQuantum(currP, processOvertime, 4, false);
+				runOneQuantum(currP, totalTime, 4, false);
 				System.out.print("P"+ (currP.id + 1));
 			}
 			else{
 				System.out.print("-");
 			} 
-			processOvertime++;
+			totalTime++;
 		}
 	}
 
@@ -246,6 +247,11 @@ public class HPFNonpreemptive extends ProcessAlgorithm {
 	@Override
 	List<Process> getFinishedList() {
 		return finishedList;
+	}
+
+	@Override
+	int getTotalRuntime() {
+		return totalTime - 1;
 	}
 
 }

@@ -31,7 +31,7 @@ public class Test {
 	private static float tempP4AverageThroughputTime = 0;
 	
 	public static void main(String[] args) {
-
+		
 		System.out.println("FIRST-COME FIRST-SERVED: ");
 		for (int i = 1; i <= 5; i++) {
 			System.out.println("FCFS Run #" + i + ": ");
@@ -80,7 +80,7 @@ public class Test {
 			System.out.println();
 			calculateAveragesOnPriority(hpfp.getFinishedList());
 			System.out.println("Overall: ");
-			calculateAverageTimes(hpfp.getFinishedList(), 0);
+			calculateAverageTimes(hpfp.getFinishedList(), 0, hpfp.getTotalRuntime());
 			System.out.println("**********************************************");
 			
 		}
@@ -100,7 +100,7 @@ public class Test {
 			System.out.println();
 			calculateAveragesOnPriority(hpfnp.getFinishedList());
 			System.out.println("Overall: ");
-			calculateAverageTimes(hpfnp.getFinishedList(), 0);
+			calculateAverageTimes(hpfnp.getFinishedList(), 0, hpfnp.getTotalRuntime());
 			System.out.println("**********************************************");
 			
 		}
@@ -120,7 +120,7 @@ public class Test {
 			System.out.println();
 			calculateAveragesOnPriority(hpfnpA.getFinishedList());
 			System.out.println("Overall: ");
-			calculateAverageTimes(hpfnpA.getFinishedList(), 0);
+			calculateAverageTimes(hpfnpA.getFinishedList(), 0, hpfnpA.getTotalRuntime());
 			System.out.println("**********************************************");
 			
 		}
@@ -139,7 +139,7 @@ public class Test {
 			System.out.println();
 			calculateAveragesOnPriority(hpfpA.getFinishedList());
 			System.out.println("Overall: ");
-			calculateAverageTimes(hpfpA.getFinishedList(), 0);
+			calculateAverageTimes(hpfpA.getFinishedList(), 0, hpfpA.getTotalRuntime());
 			System.out.println("**********************************************");
 		}
 		System.out.println("HPF Preemptive Aging: ");
@@ -177,11 +177,11 @@ public class Test {
 	 * 
 	 * @param finishedProcesses
 	 */
-	private static void calculateAverageTimes(List<Process> finishedProcesses, int priorityLevel) {
+	private static void calculateAverageTimes(List<Process> finishedProcesses, int priorityLevel, int totalTime) {
 		float waitingTime = 0;
 		float turnaroundTime = 0; // the time in ready list to completed execute
 		float responseTime = 0;
-		float throughput = 0; //TODO
+		float throughputTime = 0;
 
 		for (Process p : finishedProcesses) {
 			waitingTime += p.waitingTime;
@@ -195,14 +195,15 @@ public class Test {
 		responseTime = responseTime / finishedProcesses.size();
 		switch(priorityLevel){
 		case 0: //not based on priority level
+			throughputTime = finishedProcesses.size() / (float) totalTime;
 			tempAverageWaitingTime += waitingTime;
 			tempAverageTurnaroundTime += turnaroundTime;
 			tempAverageResponseTime += responseTime;
-	
+			tempAverageThroughputTime += throughputTime;
 			System.out.println("Average Waiting Time: " + waitingTime);
 			System.out.println("Average Turnaround Time: " + turnaroundTime);
 			System.out.println("Average Response Time: " + responseTime);
-			System.out.println("Throughput: "+ throughput);
+			System.out.println("Throughput: "+ throughputTime);
 			break;
 		case 1:
 			tempP1AverageWaitingTime += waitingTime;
@@ -212,7 +213,6 @@ public class Test {
 			System.out.println("Average Waiting Time: " + waitingTime);
 			System.out.println("Average Turnaround Time: " + turnaroundTime);
 			System.out.println("Average Response Time: " + responseTime);
-			System.out.println("Throughput: "+ throughput);
 			break;
 		case 2:
 			tempP2AverageWaitingTime += waitingTime;
@@ -222,7 +222,6 @@ public class Test {
 			System.out.println("Average Waiting Time: " + waitingTime);
 			System.out.println("Average Turnaround Time: " + turnaroundTime);
 			System.out.println("Average Response Time: " + responseTime);
-			System.out.println("Throughput: "+ throughput);
 			break;
 		case 3: 
 			tempP3AverageWaitingTime += waitingTime;
@@ -232,7 +231,6 @@ public class Test {
 			System.out.println("Average Waiting Time: " + waitingTime);
 			System.out.println("Average Turnaround Time: " + turnaroundTime);
 			System.out.println("Average Response Time: " + responseTime);
-			System.out.println("Throughput: "+ throughput);
 			break;
 		case 4:
 			tempP4AverageWaitingTime += waitingTime;
@@ -242,7 +240,6 @@ public class Test {
 			System.out.println("Average Waiting Time: " + waitingTime);
 			System.out.println("Average Turnaround Time: " + turnaroundTime);
 			System.out.println("Average Response Time: " + responseTime);
-			System.out.println("Throughput: "+ throughput);
 			break;
 		}
 		
@@ -277,16 +274,16 @@ public class Test {
 		}
 		
 		System.out.println("Priority 1: ");
-		calculateAverageTimes(priority1, 1);
+		calculateAverageTimes(priority1, 1, 0);
 		
 		System.out.println("Priority 2: ");
-		calculateAverageTimes(priority2, 2);
+		calculateAverageTimes(priority2, 2, 0);
 		
 		System.out.println("Priority 3: ");
-		calculateAverageTimes(priority3, 3);
+		calculateAverageTimes(priority3, 3, 0);
 		
 		System.out.println("Priority 4: ");
-		calculateAverageTimes(priority4, 4);
+		calculateAverageTimes(priority4, 4, 0);
 		
 		
 		
@@ -305,7 +302,7 @@ public class Test {
 		System.out.println("Timeline: ");
 		algo.runAlgorithm();
 		System.out.println();
-		calculateAverageTimes(algo.getFinishedList(), 0);
+		calculateAverageTimes(algo.getFinishedList(), 0, algo.getTotalRuntime());
 		System.out.println("**********************************************");
 
 	}
@@ -373,6 +370,7 @@ public class Test {
 		System.out.println("Average Waiting Time: " + (tempAverageWaitingTime/5));
 		System.out.println("Average Turnaround Time: " + (tempAverageTurnaroundTime/5));
 		System.out.println("Average Response Time: " + (tempAverageResponseTime/5));
+		System.out.println("Average Throughput Time: " + (tempAverageThroughputTime/5));
 		
 		
 		

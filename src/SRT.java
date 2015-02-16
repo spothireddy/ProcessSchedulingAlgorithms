@@ -6,7 +6,7 @@ import java.util.List;
 public class SRT extends ProcessAlgorithm{
 	private List<Process> arrival;
 	private ArrayList<Process> ready;
-	
+	private int totalTime = 0;
 	public SRT(List<Process> arrivalList){
 		ready=new ArrayList<Process>();
 		arrival=arrivalList;
@@ -121,6 +121,8 @@ public class SRT extends ProcessAlgorithm{
 				arrival.set(p2.id, p2); //update the process in arrival list
 			}
 		}
+		
+		totalTime = i;
 	}
 
 	@Override
@@ -137,5 +139,10 @@ public class SRT extends ProcessAlgorithm{
 	@Override
 	List<Process> returnArrival() {
 		return arrival;
+	}
+
+	@Override
+	int getTotalRuntime() {
+		return totalTime;
 	}
 }

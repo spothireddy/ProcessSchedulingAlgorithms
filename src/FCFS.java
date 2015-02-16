@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -11,6 +12,7 @@ public class FCFS extends ProcessAlgorithm {
 	private List<Process> finishedList;
 	private Queue<Process> readyQueue;
 	Process currP;
+	int totalTime = Process.MAX_QUANTA;
 	
 	public FCFS(List<Process> arrivalList) {
 		arrival = arrivalList;
@@ -74,14 +76,44 @@ public class FCFS extends ProcessAlgorithm {
 		}
 	}
 	
+	/**
+	 * Remove processes that haven't started yet.
+	 */
+	private void removeExtraProcesses() {
+		Iterator<Process> iterator = readyQueue.iterator();
+		while (iterator.hasNext()) {
+			Process process = (Process) iterator.next();
+			if (!process.runFlag) {
+				iterator.remove();
+			}
+		}
+	}
+	
 	@Override
 	void runAlgorithm() {
 		for(int i = 0; i < Process.MAX_QUANTA ; i++) {
 			addToReadyQueue(i);
-			Process currP = readyQueue.peek();
-			runOneQuantum(currP, i, currP.priority, true);
+			if (!readyQueue.isEmpty()) {
+				Process currP = readyQueue.peek();
+				runOneQuantum(currP, i, currP.priority, true);
+				addWaittimes();
+				System.out.print("P"+ (currP.id + 1));
+			} else {
+				System.out.print("-");
+			}
+		}
+		
+		//handle unfinished processes
+		totalTime = Process.MAX_QUANTA;
+		
+		removeExtraProcesses();
+
+		while (!readyQueue.isEmpty()) {
+			currP = readyQueue.peek();
+			runOneQuantum(currP, totalTime, 1, false);
 			addWaittimes();
-			System.out.print("P"+ (currP.id + 1));
+			System.out.print("P"+ (currP.id + 1));	
+			totalTime++;
 		}
 	}
 
@@ -93,6 +125,12 @@ public class FCFS extends ProcessAlgorithm {
 	@Override
 	List<Process> getFinishedList() {
 		return finishedList;
+	}
+
+
+	@Override
+	int getTotalRuntime() {
+		return totalTime;
 	}
 
 }

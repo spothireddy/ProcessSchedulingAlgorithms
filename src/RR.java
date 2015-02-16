@@ -12,7 +12,7 @@ public class RR extends ProcessAlgorithm{
 	private Queue<Process> readyQueue; 
 	
 	Process currP;
-	
+	int totalTime = Process.MAX_QUANTA;
 	
 	public RR(List<Process> arrivalList){
 		readyQueue =new LinkedList<Process>();
@@ -48,7 +48,7 @@ public class RR extends ProcessAlgorithm{
 		}
 		
 		//handle unfinished processes
-		int processOvertime = Process.MAX_QUANTA;
+		totalTime = Process.MAX_QUANTA;
 		Queue<Process> tempQueue = new LinkedList<Process>();
 		//get rid of processes that haven't started yet (run time = remaining time)
 		for(Process p: readyQueue){
@@ -64,14 +64,14 @@ public class RR extends ProcessAlgorithm{
 			currP = readyQueue.remove();
 			
 			
-			runOneQuantum(currP, processOvertime, false); //Use Process overtime instead of i
+			runOneQuantum(currP, totalTime, false); //Use Process overtime instead of i
 			//Add waiting time to processes currently not running
 			for(Process p: readyQueue){
 				p.waitingTime = (float) (p.waitingTime + 1);
 						
 			}
 			System.out.print("P"+ (currP.id + 1)); 
-			processOvertime++;
+			totalTime++;
 		}
 		
 		
@@ -129,6 +129,12 @@ public class RR extends ProcessAlgorithm{
 	public List<Process> getFinishedList(){
 		Collections.sort(finishedList);
 		return finishedList;
+	}
+
+	@Override
+	int getTotalRuntime() {
+		
+		return totalTime - 1;
 	}
 	
 	
