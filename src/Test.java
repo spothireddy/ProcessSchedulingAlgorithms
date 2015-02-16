@@ -13,22 +13,18 @@ public class Test {
 	private static float tempP1AverageWaitingTime = 0;
 	private static float tempP1AverageTurnaroundTime = 0;
 	private static float tempP1AverageResponseTime =0;
-	private static float tempP1AverageThroughputTime = 0;
 	
 	private static float tempP2AverageWaitingTime = 0;
 	private static float tempP2AverageTurnaroundTime = 0;
 	private static float tempP2AverageResponseTime =0;
-	private static float tempP2AverageThroughputTime = 0;
 	
 	private static float tempP3AverageWaitingTime = 0;
 	private static float tempP3AverageTurnaroundTime = 0;
 	private static float tempP3AverageResponseTime =0;
-	private static float tempP3AverageThroughputTime = 0;
 	
 	private static float tempP4AverageWaitingTime = 0;
 	private static float tempP4AverageTurnaroundTime = 0;
 	private static float tempP4AverageResponseTime =0;
-	private static float tempP4AverageThroughputTime = 0;
 	
 	public static void main(String[] args) {
 		
@@ -154,9 +150,9 @@ public class Test {
 	 */
 	public static List<Process> createProcessList() {
 		List<Process> arrivalList = new LinkedList<Process>();
-		Process.setRandomSeek(0); // test with 0 for debugging otherwise use System.currentTimeMillis()
+		Process.setRandomSeek(System.currentTimeMillis()); // test with 0 for debugging otherwise use System.currentTimeMillis()
 															
-		for (int i = 0; i < 30; i++) {
+		for (int i = 0; i < 50; i++) {
 			Process p = Process.make();
 			arrivalList.add(p);
 		}
@@ -319,22 +315,19 @@ public class Test {
 		tempP1AverageWaitingTime = 0;
 		tempP1AverageTurnaroundTime = 0;
 		tempP1AverageResponseTime =0;
-		tempP1AverageThroughputTime = 0;
 		
 		tempP2AverageWaitingTime = 0;
 		tempP2AverageTurnaroundTime = 0;
 		tempP2AverageResponseTime =0;
-		tempP2AverageThroughputTime = 0;
 		
 		tempP3AverageWaitingTime = 0;
 		tempP3AverageTurnaroundTime = 0;
 		tempP3AverageResponseTime =0;
-		tempP3AverageThroughputTime = 0;
-		
-		tempP3AverageWaitingTime = 0;
-		tempP3AverageTurnaroundTime = 0;
-		tempP3AverageResponseTime =0;
-		tempP3AverageThroughputTime = 0;
+	
+		tempP4AverageWaitingTime = 0;
+		tempP4AverageTurnaroundTime = 0;
+		tempP4AverageResponseTime =0;
+
 	}
 	
 	/**
